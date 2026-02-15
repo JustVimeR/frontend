@@ -32,13 +32,22 @@ export default function SalesPage() {
 	const [loading, setLoading] = useState(true);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [editingSale, setEditingSale] = useState<Sale | null>(null);
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const pageSize = 10;
 
 	const { register, handleSubmit, reset, setValue } = useForm();
 
 	const fetchSales = async () => {
+		setLoading(true);
 		try {
-			const res = await api.get("/sales?limit=100");
+			const skip = (page - 1) * pageSize;
+			const res = await api.get(`/sales?skip=${skip}&limit=${pageSize}`);
 			setSales(res.data);
+
+			// Fetch count
+			const countRes = await api.get("/sales/count");
+			setTotalPages(Math.ceil(countRes.data.count / pageSize));
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -67,6 +76,9 @@ export default function SalesPage() {
 
 	useEffect(() => {
 		fetchSales();
+	}, [page]);
+
+	useEffect(() => {
 		fetchDims();
 	}, []);
 
@@ -207,6 +219,27 @@ export default function SalesPage() {
 						))}
 					</tbody>
 				</table>
+			</div>
+
+			{/* Pagination Controls */}
+			<div className="mt-4 flex justify-between items-center">
+				<button
+					disabled={page === 1}
+					onClick={() => setPage((p) => Math.max(1, p - 1))}
+					className={`px-4 py-2 border rounded ${page === 1 ? "bg-gray-100 text-gray-400" : "bg-white hover:bg-gray-50"}`}
+				>
+					Previous
+				</button>
+				<span className="text-gray-600">
+					Page {page} of {totalPages}
+				</span>
+				<button
+					disabled={page >= totalPages}
+					onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+					className={`px-4 py-2 border rounded ${page >= totalPages ? "bg-gray-100 text-gray-400" : "bg-white hover:bg-gray-50"}`}
+				>
+					Next
+				</button>
 			</div>
 
 			{modalOpen && (

@@ -18,7 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		{ name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
 		{ name: "Sales", href: "/sales", icon: ShoppingCart },
 		{ name: "Reports", href: "/reports/overview", icon: BarChart3 },
-		{ name: "Rankings", href: "/rankings/region", icon: Medal },
+		{ name: "Rankings", href: "/rankings", icon: Medal },
 		{ name: "Author", href: "/author", icon: User },
 		{ name: "Upload", href: "/upload", icon: FileSpreadsheet },
 	];
