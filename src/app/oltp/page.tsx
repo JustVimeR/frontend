@@ -177,7 +177,8 @@ export default function OltpPage() {
 			"payment_type",
 			"sales_channel",
 		];
-		fields.forEach((f) => setValue(f, (sale as Record<string, unknown>)[f]));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		fields.forEach((f) => setValue(f, (sale as any)[f]));
 		setModalOpen(true);
 	};
 
