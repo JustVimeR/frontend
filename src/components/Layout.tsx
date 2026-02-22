@@ -22,7 +22,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		{ name: "Rankings", href: "/rankings", icon: Medal },
 		{ name: "Author", href: "/author", icon: User },
 		{ name: "Upload", href: "/upload", icon: FileSpreadsheet },
-		{ name: "OLTP Data", href: "/oltp", icon: Database },
+		{ name: "Data import", href: "/oltp", icon: Database },
 	];
 
 	return (

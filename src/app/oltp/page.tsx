@@ -270,9 +270,7 @@ export default function OltpPage() {
 		<div>
 			<div className="flex justify-between items-center mb-6">
 				<div>
-					<h1 className="text-3xl font-bold text-gray-800">
-						OLTP — Operational Data
-					</h1>
+					<h1 className="text-3xl font-bold text-gray-800">Operational Data</h1>
 					<p className="text-gray-500 text-sm mt-1">
 						Raw sales data. Select records and transfer them to the analytics
 						warehouse.
