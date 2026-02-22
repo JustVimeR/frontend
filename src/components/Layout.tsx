@@ -9,6 +9,7 @@ import {
 	Medal,
 	User,
 	FileSpreadsheet,
+	Database,
 } from "lucide-react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -21,6 +22,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		{ name: "Rankings", href: "/rankings", icon: Medal },
 		{ name: "Author", href: "/author", icon: User },
 		{ name: "Upload", href: "/upload", icon: FileSpreadsheet },
+		{ name: "OLTP Data", href: "/oltp", icon: Database },
 	];
 
 	return (
