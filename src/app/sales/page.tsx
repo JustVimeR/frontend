@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import api from "@/lib/api";
-import { Plus, Edit, Trash2, X } from "lucide-react";
+import { Plus, Edit, Trash2, X, Search } from "lucide-react";
 
 interface Sale {
 	id: number;
@@ -34,6 +34,8 @@ export default function SalesPage() {
 	const [editingSale, setEditingSale] = useState<Sale | null>(null);
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchInput, setSearchInput] = useState("");
 	const pageSize = 10;
 
 	const { register, handleSubmit, reset, setValue } = useForm();
@@ -42,12 +44,17 @@ export default function SalesPage() {
 		setLoading(true);
 		try {
 			const skip = (page - 1) * pageSize;
-			const res = await api.get(`/sales?skip=${skip}&limit=${pageSize}`);
-			setSales(res.data);
+			const params: any = { skip, limit: pageSize };
+			if (searchTerm) params.search = searchTerm;
 
-			// Fetch count
-			const countRes = await api.get("/sales/count");
-			setTotalPages(Math.ceil(countRes.data.count / pageSize));
+			const [res, countRes] = await Promise.all([
+				api.get("/sales", { params }),
+				api.get("/sales/count", {
+					params: searchTerm ? { search: searchTerm } : {},
+				}),
+			]);
+			setSales(res.data);
+			setTotalPages(Math.max(1, Math.ceil(countRes.data.count / pageSize)));
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -76,7 +83,7 @@ export default function SalesPage() {
 
 	useEffect(() => {
 		fetchSales();
-	}, [page]);
+	}, [page, searchTerm]);
 
 	useEffect(() => {
 		fetchDims();
@@ -146,7 +153,7 @@ export default function SalesPage() {
 
 	return (
 		<div>
-			<div className="flex justify-between items-center mb-6">
+			<div className="flex justify-between items-center mb-4">
 				<h1 className="text-3xl font-bold text-gray-800">Sales Management</h1>
 				<button
 					onClick={openAdd}
@@ -155,6 +162,47 @@ export default function SalesPage() {
 					<Plus className="w-4 h-4 mr-2" />
 					Add Sale
 				</button>
+			</div>
+
+			{/* Search bar */}
+			<div className="mb-4 flex gap-2">
+				<div className="relative flex-1">
+					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+					<input
+						type="text"
+						placeholder="Search by product, manager, region, or city..."
+						value={searchInput}
+						onChange={(e) => setSearchInput(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								setPage(1);
+								setSearchTerm(searchInput);
+							}
+						}}
+						className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+					/>
+				</div>
+				<button
+					onClick={() => {
+						setPage(1);
+						setSearchTerm(searchInput);
+					}}
+					className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700"
+				>
+					Search
+				</button>
+				{searchTerm && (
+					<button
+						onClick={() => {
+							setSearchInput("");
+							setSearchTerm("");
+							setPage(1);
+						}}
+						className="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-50"
+					>
+						Clear
+					</button>
+				)}
 			</div>
 
 			<div className="bg-white rounded-lg shadow overflow-hidden">
