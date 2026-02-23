@@ -155,13 +155,13 @@ export default function SalesPage() {
 		<div>
 			<div className="flex justify-between items-center mb-4">
 				<h1 className="text-3xl font-bold text-gray-800">Sales Management</h1>
-				<button
+				{/* <button
 					onClick={openAdd}
 					className="bg-blue-600 text-white px-4 py-2 rounded flex items-center hover:bg-blue-700"
 				>
 					<Plus className="w-4 h-4 mr-2" />
 					Add Sale
-				</button>
+				</button> */}
 			</div>
 
 			{/* Search bar */}
@@ -250,12 +250,12 @@ export default function SalesPage() {
 									${sale.revenue}
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-									<button
+									{/* <button
 										onClick={() => openEdit(sale)}
 										className="text-indigo-600 hover:text-indigo-900 mr-4"
 									>
 										<Edit className="w-4 h-4" />
-									</button>
+									</button> */}
 									<button
 										onClick={() => handleDelete(sale.id)}
 										className="text-red-600 hover:text-red-900"
