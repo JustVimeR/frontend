@@ -8,13 +8,17 @@
 		"start": "next start",
 		"lint": "eslint",
 		"test": "jest",
-		"test:coverage": "jest --coverage"
+		"test:coverage": "jest --coverage",
+		"test:e2e": "playwright test",
+		"test:e2e:report": "playwright test --reporter=html",
+		"lint:report": "eslint src --ext .ts,.tsx --format json -o eslint-report.json || true"
 	},
 	"dependencies": {
 		"@next/font": "^14.1.0",
 		"@tanstack/react-query": "^5.22.2",
 		"axios": "^1.6.7",
 		"clsx": "^2.1.0",
+		"docx": "^9.6.1",
 		"lucide-react": "^0.331.0",
 		"next": "14.1.0",
 		"react": "^18",
@@ -24,6 +28,7 @@
 		"tailwind-merge": "^2.2.1"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.58.2",
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.2",
 		"@testing-library/user-event": "^14.6.1",

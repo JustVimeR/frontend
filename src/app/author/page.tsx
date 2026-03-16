@@ -11,7 +11,7 @@ export default function AuthorPage() {
 			<h1 className="text-3xl font-bold text-gray-800 mb-2">
 				Developed by Taran Vladyslav
 			</h1>
-			<p className="text-gray-600 mb-6">Senior Full-Stack Developer</p>
+			<p className="text-gray-600 mb-6">Full-Stack Developer</p>
 
 			<div className="text-left bg-gray-50 p-6 rounded-lg">
 				<h3 className="font-semibold mb-2">
