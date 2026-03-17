@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 
 jest.mock("@/lib/api", () => ({
 	__esModule: true,
@@ -102,9 +102,11 @@ describe("SalesPage — завантаження та відображення �
 
 	afterEach(() => jest.clearAllMocks());
 
-	it("показує Loading... під час завантаження", () => {
+	it("показує Loading... під час завантаження", async () => {
 		render(<SalesPage />);
 		expect(screen.getByText("Loading...")).toBeInTheDocument();
+		// flush pending async state updates so they don't leak outside act()
+		await act(async () => {});
 	});
 
 	it("відображає заголовок Sales Management після завантаження", async () => {
