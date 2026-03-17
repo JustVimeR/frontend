@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 
 jest.mock("@/lib/api", () => ({
 	__esModule: true,
@@ -72,9 +72,10 @@ describe("Dashboard — успішне завантаження даних", () 
 		jest.clearAllMocks();
 	});
 
-	it("спочатку показує індикатор завантаження", () => {
+	it("спочатку показує індикатор завантаження", async () => {
 		render(<Dashboard />);
 		expect(screen.getByText("Loading...")).toBeInTheDocument();
+		await act(async () => {});
 	});
 
 	it("відображає заголовок Dashboard після завантаження", async () => {

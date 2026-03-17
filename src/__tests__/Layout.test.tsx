@@ -145,7 +145,7 @@ describe("AuthorPage — статична сторінка автора", () => 
 
 	it("відображає посаду автора", () => {
 		render(<AuthorPage />);
-		expect(screen.getByText("Senior Full-Stack Developer")).toBeInTheDocument();
+		expect(screen.getByText("Full-Stack Developer")).toBeInTheDocument();
 	});
 
 	it("відображає назву проекту", () => {

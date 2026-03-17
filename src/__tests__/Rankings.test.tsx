@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 
 jest.mock("@/lib/api", () => ({
 	__esModule: true,
@@ -51,9 +51,10 @@ describe("RankingsPage — успішне завантаження даних", 
 
 	afterEach(() => jest.clearAllMocks());
 
-	it("показує Loading... під час завантаження", () => {
+	it("показує Loading... під час завантаження", async () => {
 		render(<RankingsPage />);
 		expect(screen.getByText("Loading...")).toBeInTheDocument();
+		await act(async () => {});
 	});
 
 	it("відображає заголовок Rankings після завантаження", async () => {
