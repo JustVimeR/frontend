@@ -75,10 +75,15 @@ test.describe("Сценарій 6b — Author page", () => {
 	test("6.8 — технологічні теги FastAPI та Next.js відображаються", async ({
 		page,
 	}) => {
-		// Шукаємо саме span-теги (точний текст), а не підрядки у параграфі
 		await expect(page.locator("span", { hasText: /^FastAPI$/ })).toBeVisible();
-		await expect(page.locator("span", { hasText: /^Next\.js 14$/ })).toBeVisible();
-		await expect(page.locator("span", { hasText: /^PostgreSQL$/ })).toBeVisible();
-		await expect(page.locator("span", { hasText: /^TailwindCSS$/ })).toBeVisible();
+		await expect(
+			page.locator("span", { hasText: /^Next\.js 14$/ }),
+		).toBeVisible();
+		await expect(
+			page.locator("span", { hasText: /^PostgreSQL$/ }),
+		).toBeVisible();
+		await expect(
+			page.locator("span", { hasText: /^TailwindCSS$/ }),
+		).toBeVisible();
 	});
 });
